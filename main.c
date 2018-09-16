@@ -6,11 +6,12 @@
 /*   By: tduval <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 19:41:38 by tduval            #+#    #+#             */
-/*   Updated: 2018/09/09 16:42:44 by tduval           ###   ########.fr       */
+/*   Updated: 2018/09/17 00:43:37 by tduval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sudoku.h"
+#include <stdio.h>
 
 char	ft_valid(char **grid, int num)
 {
@@ -36,18 +37,18 @@ char	ft_valid(char **grid, int num)
 	return (1);
 }
 
-void	ft_print_grid(char **grid)
+void	ft_print_grid(int grid[9][9])
 {
 	size_t	i;
 	size_t	j;
 
-	i = 1;
+	i = 0;
 	j = 0;
-	while (i < 10)
+	while (i < 9)
 	{
 		while (j < 9)
 		{
-			ft_putchar(grid[i][j]);
+			ft_putchar(grid[i][j] + 48);
 			if (j != 8)
 				ft_putchar(' ');
 			j++;
@@ -58,23 +59,47 @@ void	ft_print_grid(char **grid)
 	}		
 }
 
+void	ft_fill_grid(int grid[9][9], char **av)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (i < 9)
+	{
+		while (j < 9)
+		{
+			if (av[i + 1][j] == '.')
+				grid[i][j] = 0;
+			else
+				grid[i][j] = av[i + 1][j] - 48;
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
+
 int		main(int ac, char **av)
 {
-	char	**grid;
+	int		grid[9][9];
 	size_t	num;
 
 	num = ac;
-	grid = av;
-	if(ft_valid(grid, num))
+	ft_fill_grid(grid, av);
+	if (ft_valid(av, num))
 	{
 		ft_putstr("\nUnsolved grid :\n\n");
 		ft_print_grid(grid);
 		ft_putstr("\n\n");
 		ft_putstr("Solved grid :\n\n");
-		ft_solve_sudoku(grid);
+		ft_solve_sudoku(grid, 0, 0);
+		ft_print_grid(grid);
 		ft_putchar('\n');
 	}
 	else
 		ft_putstr("\nGrid error\n\n");
+	
 	return (0);
 }
