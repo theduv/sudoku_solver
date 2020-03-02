@@ -6,7 +6,7 @@
 /*   By: tduval <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 19:41:38 by tduval            #+#    #+#             */
-/*   Updated: 2018/09/17 00:43:37 by tduval           ###   ########.fr       */
+/*   Updated: 2020/03/02 13:28:59 by tduval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ int		main(int ac, char **av)
 	size_t	num;
 
 	num = ac;
-	ft_fill_grid(grid, av);
 	if (ft_valid(av, num))
 	{
+		ft_fill_grid(grid, av);
 		ft_putstr("\nUnsolved grid :\n\n");
 		ft_print_grid(grid);
 		ft_putstr("\n\n");
